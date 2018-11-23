@@ -1,0 +1,18 @@
+{
+  "name": "codaisseur-homework-wk-6",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "repository": "git@github.com:swesterveld/codaisseur-homework-wk-6.git",
+  "author": "Sil Westerveld <git@silwesterveld.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^1.18.6",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon",
+    "compile": "tsc"
+  }
+}
