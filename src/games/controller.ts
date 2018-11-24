@@ -1,12 +1,15 @@
 import {JsonController, Get} from 'routing-controllers'
 
+import Game from './entity'
+
 @JsonController()
 export default class GameController {
 
-  @Get("/games")
-  getGames() {
+  @Get('/games')
+  async getGames() {
+    const games = await Game.find()
     return {
-      todo: 'implement'
+      games
     }
   }
 }
