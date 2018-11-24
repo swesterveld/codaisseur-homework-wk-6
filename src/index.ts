@@ -1,8 +1,8 @@
-import setupDatabase from './db'
-
 import 'reflect-metadata'
-import {createKoaServer} from "routing-controllers"
-import GameController from "./games/controller"
+import {createKoaServer} from 'routing-controllers'
+
+import GameController from './games/controller'
+import setupDatabase from './db'
 
 const port = process.env.PORT || 3000
 
