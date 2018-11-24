@@ -1,13 +1,27 @@
 {
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "build",
-    "target": "es2017"
-  }
+    "rootDir": "src",
+    "target": "es2017",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "skipLibCheck": false,
+    "sourceMap": true,
+    "strictNullChecks": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "compileOnSave": true,
 }
