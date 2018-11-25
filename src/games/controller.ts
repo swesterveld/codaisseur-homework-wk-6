@@ -13,7 +13,10 @@ import {
 
 import Game, {Colors} from './entity'
 
-const defaultBoard = [
+type Cell = 'o' | 'x' | ' '
+type Row = [Cell, Cell, Cell]
+type Board = [Row, Row, Row]
+const defaultBoard: Board = [
   ['o', 'o', 'o'],
   ['o', 'o', 'o'],
   ['o', 'o', 'o']
@@ -32,7 +35,7 @@ export default class GameController {
 
   @Post('/games')
   @HttpCode(201)
-  createGame(
+  startGame(
     @BodyParam('name') name: string
   ) {
     const color = Colors[Math.trunc(Math.random()*Object.keys(Colors).length/2)]
