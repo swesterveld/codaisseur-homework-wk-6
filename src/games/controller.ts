@@ -40,16 +40,31 @@ export default class GameController {
     @Param('id') id: number,
     @Body() update: Partial<Game>
   ) {
-    const game = await Game.findOne(Number(id))
+    const game = await Game.findOne(id)
 
-    if (!game) throw new NotFoundError('Cannot find game')
+    if (!game) {
+      return new NotFoundError('Cannot find game')
+    }
+    if (update.board) {
+      console.log(game)
+      /*
+      let old_board = JSON.parse(game.board)
+      let new_board = JSON.parse(update.board)
+      console.log('old_board', old_board)
+      console.log('new_board', new_board)
+      let moves = Game.moves(old_board, new_board)
+      console.log('n/o moves', moves)
+      */
+      if (Game.isValidMove(JSON.parse(game.board), JSON.parse(update.board))) {
+        throw new BadRequestError('Invalid move')
+      }
+      const merged = Game.merge(game, update)
 
-    const merged = Game.merge(game, update)
-
-    if (merged.hasValidColor()) {
-      return merged.save()
-    } else {
-      throw new BadRequestError(`Invalid color`)
+      if (Game.isValidColor(merged.color)) {
+        return merged.save()
+      } else {
+        throw new BadRequestError(`Invalid color`)
+      }
     }
   }
 }
