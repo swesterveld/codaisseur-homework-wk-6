@@ -45,13 +45,11 @@ export default class GameController {
       return new NotFoundError('Cannot find game')
     }
 
-    const validMove = Game.isValidMove(JSON.parse(game.board), JSON.parse(update.board))
-    if (!validMove) {
+    if (update.board && !Game.isValidMove(JSON.parse(game.board), JSON.parse(update.board))) {
       throw new BadRequestError('Invalid move')
     }
 
-    const validColor = Game.isValidColor(update.color)
-    if (!validColor) {
+    if (update.color && !Game.isValidColor(update.color)) {
       throw new BadRequestError(`Invalid color`)
     }
 
