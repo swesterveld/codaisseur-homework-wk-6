@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
-import {Validator} from 'class-validator'
+import {IsJSON, Validator} from 'class-validator'
 
 type Cell = 'o' | 'x' | ' '
 type Row = [Cell, Cell, Cell]
@@ -38,6 +38,7 @@ export default class Game extends BaseEntity {
   })
   color: string
 
+  @IsJSON()
   @Column({
     type: 'json',
     nullable: false
@@ -48,12 +49,12 @@ export default class Game extends BaseEntity {
     super()
     this.name = name
     this.color = Colors[Math.trunc(Math.random()*Object.keys(Colors).length/2)]
-    this.board = JSON.parse(JSON.stringify(defaultBoard))
+    this.board = JSON.stringify(defaultBoard)
   }
 
-  static isValidMove = (board1: Board, board2: Board) =>
-    board1
-      .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
+  static isValidMove = (board1: string, board2: string) =>
+    JSON.parse(board1)
+      .map((row, y) => row.filter((cell, x) => JSON.parse(board2)[y][x] !== cell))
       .reduce((a, b) => a.concat(b))
       .length === 1
 

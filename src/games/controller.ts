@@ -45,7 +45,7 @@ export default class GameController {
       return new NotFoundError('Cannot find game')
     }
 
-    if (update.board && !Game.isValidMove(JSON.parse(game.board), JSON.parse(update.board))) {
+    if (update.board && !Game.isValidMove(game.board, update.board)) {
       throw new BadRequestError('Invalid move')
     }
 
