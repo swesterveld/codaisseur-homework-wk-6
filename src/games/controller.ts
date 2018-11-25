@@ -1,4 +1,14 @@
-import {JsonController, Get, Post, BodyParam, HttpCode} from 'routing-controllers'
+import {
+  JsonController,
+  Get,
+  Post,
+  BodyParam,
+  HttpCode,
+  Param,
+  Put,
+  Body,
+  NotFoundError,
+} from 'routing-controllers'
 
 import Game from './entity'
 
@@ -31,7 +41,7 @@ export default class GameController {
   @HttpCode(201)
   createGame(
     @BodyParam('name') name: string
-  ): Promise<Game> {
+  ) {
     const color = Colors[Math.trunc(Math.random()*Object.keys(Colors).length/2)]
 
     const game = new Game()
@@ -40,5 +50,17 @@ export default class GameController {
     game.board = JSON.parse(JSON.stringify(defaultBoard))
 
     return game.save()
+  }
+
+  @Put('/games/:id')
+  async changeGame(
+    @Param('id') id: number,
+    @Body() update: Partial<Game>
+  ) {
+    const game = await Game.findOne(Number(id))
+
+    if (!game) throw new NotFoundError('Cannot find game')
+
+    return Game.merge(game, update).save()
   }
 }
