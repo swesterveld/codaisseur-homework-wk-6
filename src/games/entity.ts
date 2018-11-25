@@ -51,13 +51,13 @@ export default class Game extends BaseEntity {
     this.board = JSON.parse(JSON.stringify(defaultBoard))
   }
 
-  static isValidMove = (board1, board2) =>
+  static isValidMove = (board1: Board, board2: Board) =>
     board1
       .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
       .reduce((a, b) => a.concat(b))
       .length === 1
 
-  static isValidColor = (color): boolean => {
+  static isValidColor = (color: string): boolean => {
     return new Validator().isEnum(color, Colors)
   }
 }
