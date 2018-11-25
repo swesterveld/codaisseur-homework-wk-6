@@ -10,15 +10,7 @@ import {
   NotFoundError,
 } from 'routing-controllers'
 
-import Game from './entity'
-
-enum Colors {
-  'red',
-  'blue',
-  'green',
-  'yellow',
-  'magenta'
-}
+import Game, {Colors} from './entity'
 
 const defaultBoard = [
   ['o', 'o', 'o'],

@@ -1,6 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
 
+export enum Colors {
+  'red',
+  'blue',
+  'green',
+  'yellow',
+  'magenta'
+}
+
 @Entity()
 export default class Game extends BaseEntity {
 
