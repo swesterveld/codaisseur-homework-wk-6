@@ -8,6 +8,7 @@ import {
   Put,
   Body,
   NotFoundError,
+  BadRequestError,
 } from 'routing-controllers'
 
 import Game, {Colors} from './entity'
@@ -53,6 +54,12 @@ export default class GameController {
 
     if (!game) throw new NotFoundError('Cannot find game')
 
-    return Game.merge(game, update).save()
+    const merged = Game.merge(game, update)
+
+    if (merged.hasValidColor()) {
+      return merged.save()
+    } else {
+      throw new BadRequestError(`Invalid color`)
+    }
   }
 }
