@@ -36,7 +36,7 @@ export default class Game extends BaseEntity {
   board: string
 
   @Exclude()
-  hasValidColor = () => {
+  hasValidColor = (): boolean => {
     return new Validator().isEnum(this.color, Colors)
   }
 }
