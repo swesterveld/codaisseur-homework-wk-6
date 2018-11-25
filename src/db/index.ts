@@ -31,7 +31,7 @@ export default () =>
     entities: [
       Game
     ],
-    synchronize: true,
+    synchronize: process.env.NODE_ENV !== 'production',
     logging: true,
     namingStrategy: new CustomNamingStrategy()
   })
