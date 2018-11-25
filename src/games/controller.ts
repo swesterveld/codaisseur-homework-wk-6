@@ -11,16 +11,7 @@ import {
   BadRequestError,
 } from 'routing-controllers'
 
-import Game, {Colors} from './entity'
-
-type Cell = 'o' | 'x' | ' '
-type Row = [Cell, Cell, Cell]
-type Board = [Row, Row, Row]
-const defaultBoard: Board = [
-  ['o', 'o', 'o'],
-  ['o', 'o', 'o'],
-  ['o', 'o', 'o']
-]
+import Game from './entity'
 
 @JsonController()
 export default class GameController {
@@ -38,13 +29,9 @@ export default class GameController {
   startGame(
     @BodyParam('name') name: string
   ) {
-    const color = Colors[Math.trunc(Math.random()*Object.keys(Colors).length/2)]
+    if (!name) throw new BadRequestError('Bad Request')
 
-    const game = new Game()
-    game.name = name
-    game.color = color
-    game.board = JSON.parse(JSON.stringify(defaultBoard))
-
+    const game = new Game(name)
     return game.save()
   }
 

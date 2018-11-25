@@ -3,6 +3,16 @@ import { BaseEntity } from 'typeorm/repository/BaseEntity'
 import {Exclude} from 'class-transformer'
 import {Validator} from 'class-validator'
 
+type Cell = 'o' | 'x' | ' '
+type Row = [Cell, Cell, Cell]
+type Board = [Row, Row, Row]
+
+const defaultBoard: Board = [
+  ['o', 'o', 'o'],
+  ['o', 'o', 'o'],
+  ['o', 'o', 'o']
+]
+
 export enum Colors {
   'red',
   'blue',
@@ -33,7 +43,14 @@ export default class Game extends BaseEntity {
     type: 'json',
     nullable: false
   })
-  board: string
+  board: Board
+
+  constructor(name: string) {
+    super()
+    this.name = name
+    this.color = Colors[Math.trunc(Math.random()*Object.keys(Colors).length/2)]
+    this.board = JSON.parse(JSON.stringify(defaultBoard))
+  }
 
   @Exclude()
   hasValidColor = (): boolean => {
